@@ -1,0 +1,230 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Emoji Birthday Cake Card</title>
+  <style>
+    body {
+      background: linear-gradient(135deg, #f6f6ec 0, #ffe4e1 100%);
+      min-height: 100vh;
+      margin: 0;
+      overflow-x: hidden;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-family: 'Segoe UI', Candara, Geneva, Verdana, sans-serif;
+    }
+    .cake-container {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: flex-end;
+      position: relative;
+      width: 220px;
+      height: 375px;
+      cursor: pointer;
+      user-select: none;
+    }
+    .cake-emoji {
+      font-size: 180px;
+      transition: filter 0.22s;
+      z-index: 10;
+      filter: drop-shadow(0 2px 15px #e0cfcf66);
+      background: none;
+      border: none;
+      outline: none;
+      pointer-events: all;
+    }
+    .cake-emoji.pulled {
+      opacity: 0.5;
+      filter: blur(1.5px) grayscale(30%);
+    }
+    .letter-emoji {
+      font-size: 100px;
+      position: absolute;
+      left: 50%;
+      bottom: 170px;
+      transform: translateX(-50%) scale(1);
+      opacity: 0;
+      pointer-events: none;
+      transition:
+        opacity 0.5s,
+        transform 0.7s cubic-bezier(.68,-0.55,.27,1.55),
+        top 0.7s cubic-bezier(.68,-0.55,.27,1.55),
+        bottom 0.7s cubic-bezier(.68,-0.55,.27,1.55);
+      z-index: 12;
+      cursor: pointer;
+      will-change: transform, top, bottom;
+    }
+    .letter-emoji.visible {
+      opacity: 1;
+      pointer-events: auto;
+      transform: translateX(-50%) scale(1.1);
+      left: 50%;
+      top: auto;
+      bottom: 170px;
+      transition-delay: 50ms;
+    }
+    .letter-emoji.zoom {
+      left: 50%;
+      top: 50%;
+      bottom: auto;
+      transform: translate(-50%, -50%) scale(1.3) !important;
+      z-index: 50;
+      pointer-events: none;
+      transition:
+        top 0.7s cubic-bezier(.68,-0.55,.27,1.55),
+        bottom 0.7s cubic-bezier(.68,-0.55,.27,1.55),
+        opacity 0.4s 0.33s,
+        transform 0.7s cubic-bezier(.68,-0.55,.27,1.55);
+    }
+    .letter-emoji.hiding {
+      opacity: 0;
+      transform: translate(-50%, -50%) scale(0.25) !important;
+      pointer-events: none;
+      transition:
+        opacity 0.38s,
+        transform 0.5s cubic-bezier(.68,-0.55,.27,1.55);
+    }
+    .overlay {
+      display: none;
+      position: fixed;
+      inset: 0;
+      background: rgba(19,10,36,0.13);
+      z-index: 48;
+    }
+    .overlay.show {
+      display: block;
+    }
+    .card-message {
+      display: none;
+      position: fixed;
+      left: 50%;
+      top: 49.5%;
+      width: 410px;
+      max-width: 92vw;
+      min-height: 162px;
+      padding: 26px 18px 19px 26px;
+      background: linear-gradient(108deg,#fffdf7 68%, #ffe4e1 100%);
+      color: #7b2136;
+      border-radius: 22px;
+      font-size: 1.26rem;
+      text-align: center;
+      box-shadow: 0 8px 44px 0 #b47cb733;
+      transform: translate(-50%,-55%);
+      z-index: 100;
+      animation: cardAppear .4s;
+    }
+    .card-message.show {
+      display: block;
+    }
+    @keyframes cardAppear {
+      from { opacity: 0; transform: translate(-50%,-70%) scale(0.89);}
+      to   { opacity: 1; transform: translate(-50%,-55%) scale(1);}
+    }
+    .card-close {
+      position: absolute;
+      top: 8px;
+      right: 17px;
+      background: transparent;
+      border: none;
+      font-size: 2rem;
+      color: #f28482;
+      cursor: pointer;
+      z-index: 102;
+      opacity: .76;
+      transition: opacity .17s;
+    }
+    .card-close:hover { opacity: 1;}
+    @media (max-width: 480px) {
+      .cake-container { width: 96vw; height: 210px;}
+      .card-message {
+        width: 97vw; min-width: unset; padding: 7vw 2.3vw; font-size: 1em;
+      }
+      .letter-emoji { font-size: 14vw; }
+    }
+  </style>
+</head>
+<body>
+  <div class="cake-container" id="cakeContainer">
+    <button class="cake-emoji" id="cakeBtn" tabindex="1" title="Click cake!">🎂</button>
+    <span class="letter-emoji" id="letter" title="Click the letter!">💌</span>
+  </div>
+  <div class="overlay" id="overlay"></div>
+  <div class="card-message" id="cardMessage">
+    <button class="card-close" id="closeBtn" title="Close">&times;</button>
+    <h2>🎉 Happy Birthday to My Love!🎉</h2>
+    <p>
+      Chúc mừng sinh nhật Yến! Chúc my love sinh nhật này và những ngày sau này đều tràn đầy niềm vui, bình yên và thật hạnh phúc bên gia đình, người thân, và bạn bè, maybe me too.<br><br> Cảm ơn Yến vì đã đến với cuộc sống của T, đã mang lại cho T thật nhiều niềm vui và tràn đầy ý nghĩa, cảm ơn Yến vì đã chúc T khi đi ngủ nó thật sự giúp T ngủ ngoan hơn, chúc T đi học thật vui vẻ và điều đó thật sự động viên T để T đi học cảm thấy vui vẻ hơn, và cũng cảm ơn Yến vì mọi thứ Yến đã giúp và ủng hộ T.<br><br> chong yeu vo siu siu nhieu!❤️‍🔥<br> I LOVE YOU SO SO MUCH!!!<br>
+      <br>kí tên,</br> Tien Nguyen.💝<br>
+    </p>
+  </div>
+  <script>
+    const cakeBtn = document.getElementById('cakeBtn');
+    const letter = document.getElementById('letter');
+    const cardMessage = document.getElementById('cardMessage');
+    const closeBtn = document.getElementById('closeBtn');
+    const overlay = document.getElementById('overlay');
+
+    let cakePulled = false;
+    let letterZoomed = false;
+    let letterAnimating = false;
+
+    cakeBtn.addEventListener('click', function(e) {
+      if (!cakePulled && !letter.classList.contains('visible')) {
+        // reveal the letter
+        cakeBtn.classList.add('pulled');
+        setTimeout(() => {
+          letter.classList.add('visible');
+        }, 430);
+        cakePulled = true;
+      } else if (
+        letter.classList.contains('visible') &&
+        !letter.classList.contains('zoom') &&
+        !letter.classList.contains('hiding') &&
+        !letterAnimating
+      ) {
+        // hide the letter if not zoomed (not showing the card)
+        letterAnimating = true;
+        letter.classList.remove('visible');
+        letter.classList.remove('zoom');
+        letter.classList.add('hiding');
+        setTimeout(() => {
+          letter.classList.remove('hiding');
+          cakeBtn.classList.remove('pulled');
+          cakePulled = false;
+          letterAnimating = false;
+        }, 420);
+      }
+    });
+
+    letter.addEventListener('click', function(e) {
+      if (!letterZoomed && letter.classList.contains('visible')) {
+        letterZoomed = true;
+        letter.classList.add('zoom');
+        overlay.classList.add('show');
+        setTimeout(() => {
+          cardMessage.classList.add('show');
+        }, 450); // Wait for zoom-in to finish for a seamless reveal!
+      }
+    });
+
+    function closeCard() {
+      cardMessage.classList.remove('show');
+      letter.classList.remove('zoom');
+      overlay.classList.remove('show');
+      setTimeout(() => {
+        letter.classList.remove('visible');
+        cakeBtn.classList.remove('pulled');
+        cakePulled = false;
+        letterZoomed = false;
+      }, 400);
+    }
+    closeBtn.addEventListener('click', closeCard);
+    overlay.addEventListener('click', closeCard);
+    cardMessage.addEventListener('click', function(e){
+      e.stopPropagation();
+    });
+  </script>
+</body>
+</html>
